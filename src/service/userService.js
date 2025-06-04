@@ -16,30 +16,18 @@ const hashUserPassword = (userpassword) => {
     return hashpassword;
 }
 
-const createNewUser = (email, password, username) => {
+const createNewUser = async (email, password, username) => {
+    const connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'jwt', Promise: bluebird });
     let hashPass = hashUserPassword(password);
     // simple query
-    connection.query(
-        'INSERT INTO users (email,password, username) VALUES (?,?,?)', [email, hashPass, username],
-        function (err, results, fields) {
-            console.log(results); // results contains rows returned by server
-            console.log(fields); // fields contains extra meta data about results, if available
-            console.log("email ", email, "pass ", password, "username ", username);
-        }
-    );
+    const [rows, fields] = await connection.execute('INSERT INTO users (email,password, username) VALUES (?,?,?)', [email, hashPass, username]);
+
+
 }
 
 const getUserlist = async () => {
     const connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'jwt', Promise: bluebird });
-    let user = [];
-    // simple query
-    // connection.query(
-    //     'SELECT * from users',
-    //     function (err, results, fields) {
-    //         console.log("this is results: ", results); // results contains rows returned by server
-    //         //console.log(fields); // fields contains extra meta data about results, if available
-    //     }
-    // );
+
     try {
         const [rows, fields] = await connection.execute('Select * from users ');
         return rows;
@@ -49,6 +37,22 @@ const getUserlist = async () => {
 
 }
 
+const deleteUser = async (id) => {
+
+    // 'DELETE FROM users WHERE id=?';
+    const connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'jwt', Promise: bluebird });
+    // simple query
+
+    try {
+        const [rows, fields] = await connection.execute('DELETE FROM users WHERE id=?', [id]);
+    } catch (error) {
+        console.log("check error delete user: ", error);
+    }
+
+
+
+}
+
 module.exports = {
-    createNewUser, getUserlist
+    createNewUser, getUserlist, deleteUser
 }

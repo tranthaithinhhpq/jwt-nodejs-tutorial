@@ -60,13 +60,17 @@
                                         <%= index + 1 %>
                                     </th>
                                     <td>
-                                        <%= JSON.stringify(item.email) %>
+                                        <%= item.email %>
                                     </td>
                                     <td>
-                                        <%= JSON.stringify(item.username) %>
+                                        <%= item.username %>
                                     </td>
-                                    <td><button class="btn btn-warning">Edit</button> <button
-                                            class="btn btn-danger">Delete</button></td>
+                                    <td>
+                                        <button class="btn btn-warning">Edit</button>
+                                        <form style="display: inline;" method="POST"
+                                            action="/delete-user/<%= item.id %>"><button class="btn btn-danger"
+                                                type="submit">Delete</button></form>
+                                    </td>
                                 </tr>
 
                             </div>
