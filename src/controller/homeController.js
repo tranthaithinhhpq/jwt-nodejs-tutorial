@@ -24,7 +24,26 @@ const handleDeleteUser = (req, res) => {
     return res.redirect("/user");
 }
 
+const getUpdateUserPage = async (req, res) => {
+    let user = await userService.getUserById(req.params.id);
+    let userData = {};
+    if (user && user.length > 0) {
+        userData = user[0];
+    }
+    //console.log("check user: ", user, " and ", user[0], "and 2", userData);
+    return res.render("user-update.ejs", { userData });
+}
+
+
+const handleUpdateUser = async (req, res) => {
+    let email = req.body.email;
+    let username = req.body.username;
+    let id = req.body.id;
+    console.log(">>> check body: ", req.body);
+    await userService.updateUserInfor(email, username, id);
+    return res.redirect("/user");
+}
 
 module.exports = {
-    handleHelloWorld, handleUserPage, handleCreateNewUser, handleDeleteUser
+    handleHelloWorld, handleUserPage, handleCreateNewUser, handleDeleteUser, getUpdateUserPage, handleUpdateUser
 }
