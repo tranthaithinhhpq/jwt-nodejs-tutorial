@@ -33,10 +33,29 @@ const createNewUser = async (email, password, username) => {
 }
 
 const getUserlist = async () => {
+
+    let newUser = await db.User.findOne({
+        where: { id: 1 },
+        attributes: ["id", "username", "email"],
+        include: { model: db.Group, attributes: ["id", "name", "description"] },
+        raw: true,
+        nest: true
+    })
+
+    let roles = await db.Group.findOne({
+        where: { id: 1 },
+        include: { model: db.Role },
+        raw: true,
+        nest: true
+    })
+    console.log("check new user ", newUser);
+    console.log("check new role ", roles);
+
+
     let users = [];
     users = await db.User.findAll();
     return users;
-    // const connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'jwt', Promise: bluebird });
+    //const connection = await mysql.createConnection({ host: 'localhost', user: 'root', database: 'jwt', Promise: bluebird });
 
     // try {
     //     const [rows, fields] = await connection.execute('Select * from user ');
@@ -107,6 +126,7 @@ const updateUserInfor = async (email, username, id) => {
     // }
 
 }
+
 
 module.exports = {
     createNewUser, getUserlist, deleteUser, getUserById, updateUserInfor
