@@ -19,7 +19,7 @@ const handleRegister = async (req, res) => {
         // check password length 
         if (req.body.password && req.body.password.length < 3)
             return res.status(200).json({
-                EM: 'Your password must more than 3 leter', // error message
+                EM: 'Your password must more than 3 letter', // error message
                 EC: '1', // error code
                 DT: '', //data
             })
@@ -45,11 +45,26 @@ const handleRegister = async (req, res) => {
 
 
 const handleLogin = async (req, res) => {
-    console.log("check login in react ", req.body)
-    return res.status(200).json({
-        message: 'ok',
-        data: 'test api login'
-    })
+
+    try {
+        let data = await loginRegisterService.handleLogin(req.body);
+
+        return res.status(200).json({
+            EM: data.EM, // error message
+            EC: data.EC, //error code
+            DT: data.DT, //data
+        })
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            EM: 'error from server', // error message
+            EC: '-1', // error code
+            DT: '', data
+        })
+
+    }
+
 
 }
 module.exports = {
