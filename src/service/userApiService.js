@@ -9,7 +9,7 @@ const getAllUser = async () => {
             return {
                 EM: 'get data success',
                 EC: 0,
-                DT: users
+                DT: user
             }
         } else {
             return {

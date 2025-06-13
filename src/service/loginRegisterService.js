@@ -37,7 +37,8 @@ const registerNewUser = async (rawUserData) => {
         if (isEmailExist === true) {
             return {
                 EM: 'The email is already existed',
-                EC: 1
+                EC: 1,
+                DT: rawUserData.email
             }
         }
         let isPhoneExist = await checkPhoneExist(rawUserData.phone);

@@ -1,4 +1,4 @@
-import userApiService from '../service/UserService';
+import userApiService from '../service/userApiService';
 const read = async (req, res) => {
     try {
         let data = await userApiService.getAllUser();
@@ -11,7 +11,7 @@ const read = async (req, res) => {
     } catch (e) {
         console.log(e);
         return res.status(500).json({
-            EM: 'error from server',// error message
+            EM: 'error from server haha',// error message
             EC: '-1', //error code
             DT: '', //data
         })
@@ -20,7 +20,7 @@ const read = async (req, res) => {
 
 }
 
-const create = () => {
+const create = async () => {
     try {
 
     } catch (error) {
@@ -33,7 +33,7 @@ const create = () => {
     }
 }
 
-const update = (req, res) => {
+const update = async (req, res) => {
     try {
 
     } catch (error) {
@@ -47,7 +47,7 @@ const update = (req, res) => {
 
 }
 
-const remove = (req, res) => {
+const remove = async (req, res) => {
     try {
 
     } catch (error) {
