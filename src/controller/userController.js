@@ -31,8 +31,14 @@ const read = async (req, res) => {
 
 }
 
-const create = async () => {
+const create = async (req, res) => {
     try {
+        let data = await userApiService.createNewUser(req.body);
+        return res.status(200).json({
+            EM: data.EM, // error message
+            EC: data.EC, //error code
+            DT: data.DT, //data
+        })
 
     } catch (error) {
         console.log(error);
