@@ -43,7 +43,7 @@ const create = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({
-            EM: 'error from server', // error message
+            EM: 'error from server dumamay', // error message
             EC: '-1', //error code
             DT: '', //data
         })
@@ -52,6 +52,12 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        // let data = await userApiService.updateUser(req.body);
+        // return res.status(200).json({
+        //     EM: 'hehe from server', // error message
+        //     EC: data.EC, //error code
+        //     DT: data.DT, //data
+        // })
 
     } catch (error) {
         console.log(error);

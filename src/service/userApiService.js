@@ -1,5 +1,6 @@
 import { where } from 'sequelize/lib/sequelize';
 import db from '../models/index';
+import { checkEmailExist, checkPhoneExist, hashUserPassword } from './loginRegisterService';
 const getAllUser = async () => {
     try {
         let user = await db.User.findAll({
@@ -35,8 +36,9 @@ const getUserWithPagination = async (page, limit) => {
         const { count, rows } = await db.User.findAndCountAll({
             offset: offset,
             limit: limit,
-            attributes: ["id", "username", "email", "phone", "sex"],
-            include: { model: db.Group, attributes: ["name", "description"] },
+            attributes: ["id", "username", "email", "phone", "sex", "address"],
+            include: { model: db.Group, attributes: ["name", "description", "id"] },
+            order: [['id', 'DESC']]
 
         })
 
@@ -65,20 +67,90 @@ const getUserWithPagination = async (page, limit) => {
 
 }
 
+// const createNewUser = async (data) => {
+//     try {
+//         let isEmailExist = await checkEmailExist(data.email);
+//         if (isEmailExist === true) {
+//             return {
+//                 EM: 'The email is already exist',
+//                 EC: 1,
+//                 DT: 'email'
+//             }
+
+//         }
+//         let isPhoneExist = await checkPhoneExist(data.phone);
+//         if (isPhoneExist === true) {
+//             return {
+//                 EM: 'The phone number is already exist',
+//                 EC: 1,
+//                 DT: 'phone'
+//             }
+//         }
+//         //hash user password
+//         let hashPassword = hashUserPassword(data.password);
+//         await db.User.create({ ...data, password: hashPassword })
+
+
+
+//     } catch (e) {
+//         console.log(e);
+
+//     }
+// }
+
+
+
+
+
+
 const createNewUser = async (data) => {
     try {
-        await db.User.create(data);
+        let isEmailExist = await checkEmailExist(data.email);
+        if (isEmailExist === true) {
+            return {
+                EM: 'The email is already exist',
+                EC: 1,
+                DT: 'email'
+            }
+        }
+
+        let isPhoneExist = await checkPhoneExist(data.phone);
+        if (isPhoneExist === true) {
+            return {
+                EM: 'The phone number is already exist',
+                EC: 1,
+                DT: 'phone'
+            }
+        }
+
+        //hash user password
+        let hashPassword = hashUserPassword(data.password);
+        await db.User.create({ ...data, password: hashPassword });
+
+        // ✅ Thêm return khi thành công
         return {
-            EM: 'create ok',
+            EM: 'Create user successfully',
             EC: 0,
-            DT: []
+            DT: null
         }
 
     } catch (e) {
         console.log(e);
-
+        return {
+            EM: 'Something went wrong',
+            EC: -1,
+            DT: null
+        }
     }
 }
+
+
+
+
+
+
+
+
 
 const updateUser = async (data) => {
     try {
