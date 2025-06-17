@@ -52,12 +52,12 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     try {
-        // let data = await userApiService.updateUser(req.body);
-        // return res.status(200).json({
-        //     EM: 'hehe from server', // error message
-        //     EC: data.EC, //error code
-        //     DT: data.DT, //data
-        // })
+        let data = await userApiService.updateUser(req.body);
+        return res.status(200).json({
+            EM: 'update user success', // error message
+            EC: data.EC, //error code
+            DT: data.DT, //data
+        })
 
     } catch (error) {
         console.log(error);
