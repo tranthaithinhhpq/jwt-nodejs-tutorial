@@ -13,11 +13,10 @@ const router = express.Router();
 
 const initApiRoutes = (app) => {
 
-    router.get("/test-api", apiController.testApi);
+    router.all('*', checkUserJWT, checkUserPermission);
     router.post("/register", apiController.handleRegister);
     router.post("/login", apiController.handleLogin);
-
-    router.get("/user/read", checkUserJWT, checkUserPermission, userController.read);
+    router.get('/user/read', userController.read);
     router.post("/user/create", userController.create);
     router.put("/user/update", userController.update);
     router.delete("/user/remove", userController.remove);
