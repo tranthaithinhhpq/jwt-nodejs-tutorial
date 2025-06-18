@@ -10,12 +10,12 @@ const getGroupWithRoles = async (user) => {
             through: { attributes: [] }
         }
     });
-    if (!roles) {
-        console.log("❌ Không tìm thấy group hoặc roles cho user:", user.groupId);
-    } else {
-        console.log("✅ Tìm thấy roles:");
-        console.log(roles);
-    }
+    // if (!roles) {
+    //     console.log("❌ Không tìm thấy group hoặc roles cho user:", user.groupId);
+    // } else {
+    //     console.log("✅ Tìm thấy roles:");
+    //     console.log(roles);
+    // }
 
     return roles ? roles : {};
 }

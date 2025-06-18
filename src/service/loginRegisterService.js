@@ -2,7 +2,7 @@ require('dotenv').config();
 import db from "../models/index";
 import bcrypt from 'bcryptjs';
 import { Op } from 'sequelize';
-import { getGroupWithRoles } from './JWTService';
+import { getGroupWithRoles } from './JWTService.js';
 import { createJWT } from '../middleware/JWTAction';
 
 const salt = bcrypt.genSaltSync(10);
