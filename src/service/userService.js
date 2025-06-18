@@ -13,9 +13,9 @@ import { where } from 'sequelize/lib/sequelize';
 
 const salt = bcrypt.genSaltSync(10);
 
-const hashUserPassword = (userpassword) => {
-    let hashpassword = bcrypt.hashSync(userpassword, salt);
-    return hashpassword;
+const hashUserPassword = (userPassword) => {
+    let hashPassword = bcrypt.hashSync(userPassword, salt);
+    return hashPassword;
 }
 
 const createNewUser = async (email, password, username) => {
@@ -32,7 +32,7 @@ const createNewUser = async (email, password, username) => {
     }
 }
 
-const getUserlist = async () => {
+const getUserList = async () => {
 
     let newUser = await db.User.findOne({
         where: { id: 1 },
@@ -104,7 +104,7 @@ const getUserById = async (id) => {
 }
 
 
-const updateUserInfor = async (email, username, id) => {
+const updateUserInformation = async (email, username, id) => {
     // Change everyone without a last name to "Doe"
     await db.User.update(
         { email: email, username: username },
@@ -129,5 +129,5 @@ const updateUserInfor = async (email, username, id) => {
 
 
 module.exports = {
-    createNewUser, getUserlist, deleteUser, getUserById, updateUserInfor
+    createNewUser, getUserList, deleteUser, getUserById, updateUserInformation
 }

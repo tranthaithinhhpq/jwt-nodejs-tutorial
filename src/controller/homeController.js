@@ -4,9 +4,11 @@ const handleHelloWorld = (req, res) => {
 }
 
 const handleUserPage = async (req, res) => {
-
-    let userlist = await userService.getUserlist();
-    return res.render("user.ejs", { userlist });
+    // cookies that have not been signed
+    // console.log('Cookies: ', req.cookies);
+    // console.log('signCookies: ', req.signedCookies);
+    let userList = await userService.getUserList();
+    return res.render("user.ejs", { userList });
 
 }
 
@@ -41,7 +43,7 @@ const handleUpdateUser = async (req, res) => {
     let username = req.body.username;
     let id = req.body.id;
 
-    await userService.updateUserInfor(email, username, id);
+    await userService.updateUserInformation(email, username, id);
     return res.redirect("/user");
 }
 
