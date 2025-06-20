@@ -59,7 +59,7 @@ const registerNewUser = async (rawUserData) => {
             username: rawUserData.username,
             password: hashPassword,
             phone: rawUserData.phone,
-            groupId: 3
+            groupId: 4
         })
         return {
             EM: 'A user is created successfully',
@@ -102,7 +102,7 @@ const handleLogin = async (rawData) => {
                     email: user.email,
                     groupWithRoles,
                     username: user.username,
-                    expiresIn: process.env.JWT_EXPIRES_IN
+                    // expiresIn: process.env.JWT_EXPIRES_IN
                 };
 
                 let token = createJWT(payload);

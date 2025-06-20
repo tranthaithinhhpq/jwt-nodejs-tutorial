@@ -7,7 +7,9 @@ const createJWT = (payload) => {
     let key = process.env.JWT_SECRET;
     let token = null;
     try {
-        token = jwt.sign(payload, key);
+        token = jwt.sign(payload, key, {
+            expiresIn: process.env.JWT_EXPIRES_IN
+        });
     } catch (err) {
         console.log(err);
     }
@@ -37,7 +39,7 @@ const checkUserJWT = (req, res, next) => {
     if (cookies && cookies.jwt) {
         let token = cookies.jwt;
         let decoded = verifyToken(token);
-
+        console.log("check decoded ", decoded)
         if (decoded) {
             req.user = decoded;
             req.token = token;
