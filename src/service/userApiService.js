@@ -131,7 +131,7 @@ const createNewUser = async (data) => {
         return {
             EM: 'Create user successfully',
             EC: 0,
-            DT: null
+            DT: []
         }
 
     } catch (e) {
@@ -139,17 +139,10 @@ const createNewUser = async (data) => {
         return {
             EM: 'Something went wrong',
             EC: -1,
-            DT: null
+            DT: []
         }
     }
 }
-
-
-
-
-
-
-
 
 
 const updateUser = async (data) => {
