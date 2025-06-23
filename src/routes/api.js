@@ -25,7 +25,7 @@ const initApiRoutes = (app) => {
     router.get('/user/read', userController.read);
     router.post("/user/create", userController.create);
     router.put("/user/update", userController.update);
-    router.delete("/user/remove", userController.remove);
+    router.delete("/user/delete", userController.remove);
 
 
     // role routes
